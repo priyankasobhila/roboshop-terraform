@@ -7,6 +7,7 @@ output "ami"{
   value = data.aws_ami.centos.image_id
 }
 
+exit
 
 resource "aws_instance" "frontend" {
   ami           = "data.aws_ami.centos.image_id"
