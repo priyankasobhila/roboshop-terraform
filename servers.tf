@@ -1,7 +1,7 @@
 data "aws_ami" "centos" {
   most_recent = true
   owners = ["973714476881"]
-  Name_regex  = "Centos-8-DevOps-Practice"
+  name_regex  = "Centos-8-DevOps-Practice"
 }
 output "ami"{
   value = data.aws_ami.centos.image_id
