@@ -228,10 +228,3 @@ resource "aws_route53_record" "records" {
 //records = [aws_instance.payment.private_ip]
 //}
 
-terraform {
-  backend "s3"{
-    bucket = "priyavenkat"
-    key = "roboshop/dev/terraform.tfstate"
-    region = "us-east-1"
-  }
-}
