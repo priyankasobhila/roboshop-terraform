@@ -70,14 +70,14 @@ resource "aws_instance" "instance" {
   }
 }
 
-//}
-//resource "aws_route53_record" "frontend" {
-//  zone_id = "Z00437612FVCR3985T5TL"
-//  name    = "frontend-dev.priyavenkat.online"
-//  type    = "A"
-//  ttl     = 30
-//  records = [aws_instance.frontend.private_ip]
-//}
+
+resource "aws_route53_record" "records" {
+  zone_id = "Z00437612FVCR3985T5TL"
+  name    = "${each.value["name"]}frontend-dev.priyavenkat.online"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.instance[each.value["name"]].private_ip]
+}
 
 //resource "aws_instance" "frontend" {
 //  ami           = data.aws_ami.centos.image_id
