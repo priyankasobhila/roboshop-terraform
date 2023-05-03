@@ -1,9 +1,5 @@
-variable "instance_type" {
-  default = "t3.small"
-}
-
 resource "aws_instance" "instance" {
-  for_each = var.components
+  for_each               = var.components
   ami                    = data.aws_ami.centos.image_id
   instance_type          = each.value["instance_type"]
   vpc_security_group_ids = [data.aws_security_group.allow-all.id]
@@ -11,34 +7,35 @@ resource "aws_instance" "instance" {
   tags = {
     Name = each.value["name"]
   }
-}
 
+  provisioner "remote-exec" {
 
-provisioner "remote-exec" {
+    connection {
+      type     = "ssh"
+      user     = "centos"
+      password = "DevOps321"
+      host     = self.private_ip
+    }
 
-  connection {
-    type     = "ssh"
-    user     = "centos"
-    password = DevOps321
-    host     = self.private_ip
-  }
-      inline = [
-      " rm-rf roboshop-shell ",
-      " git clone https://github.com/priyankasobhila/Roboshop-shell.git"
+    inline = [
+      "rm -rf roboshop-shell",
+      "git clone https://github.com/raghudevopsb72/roboshop-shell",
       "cd roboshop-shell",
-      "sudo bash ${each.value["name"]}".sh
+      "sudo bash ${each.value["name"]}.sh"
     ]
   }
+}
 
 
 resource "aws_route53_record" "records" {
   for_each = var.components
-  zone_id = "Z00437612FVCR3985T5TL"
-  name    = "${each.value["name"]}frontend-dev.priyavenkat.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.instance[each.value["name"]].private_ip]
+  zone_id  = "Z03986262CQPCHNJNZM9L"
+  name     = "${each.value["name"]}-dev.rdevopsb72.online"
+  type     = "A"
+  ttl      = 30
+  records  = [aws_instance.instance[each.value["name"]].private_ip]
 }
+
 
 //resource "aws_instance" "frontend" {
 //  ami           = data.aws_ami.centos.image_id
