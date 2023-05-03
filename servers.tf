@@ -1,11 +1,6 @@
-
-
 variable "instance_type" {
   default = "t3.small"
 }
-
-
-
 
 resource "aws_instance" "instance" {
   for_each = var.components
@@ -18,7 +13,6 @@ resource "aws_instance" "instance" {
     Name = each.value["name"]
   }
 }
-
 
 resource "aws_route53_record" "records" {
   for_each = var.components
