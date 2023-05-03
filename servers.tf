@@ -21,16 +21,15 @@ provisioner "remote-exec" {
     user     = "centos"
     password = DevOps321
     host     = self.private_ip
-
-
-    inline = [
+  }
+      inline = [
       " rm-rf roboshop-shell ",
       " git clone https://github.com/priyankasobhila/Roboshop-shell.git"
       "cd roboshop-shell",
       "sudo bash ${each.value["name"]}".sh
     ]
   }
-}
+
 
 resource "aws_route53_record" "records" {
   for_each = var.components
