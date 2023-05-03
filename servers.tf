@@ -15,6 +15,7 @@ resource "aws_instance" "instance" {
 
 
 provisioner "remote-exec" {
+
   connection {
     type     = "ssh"
     user     = "centos"
