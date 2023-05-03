@@ -7,6 +7,7 @@ resource "aws_instance" "instance" {
   ami                    = data.aws_ami.centos.image_id
   instance_type          = each.value["instance_type"]
   vpc_security_group_ids = [data.aws_security_group.allow-all.id]
+
   tags = {
     Name = each.value["name"]
   }
