@@ -30,7 +30,6 @@ resource "null_resource" "provisioner" {
   }
 }
 
-
 resource "aws_route53_record" "records" {
   for_each = var.components
   zone_id  = "Z03986262CQPCHNJNZM9L"
